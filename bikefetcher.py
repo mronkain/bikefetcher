@@ -19,10 +19,14 @@ def main():
   try:
     result = requests.get("http://api.citybik.es/v2/networks/citybikes-helsinki")
   except:
+    print "Content-Type: text/plain;charset=utf-8"
+    print
     print "Error retrieving URL with requests package"
 
     #Check status code
   if result.status_code != 200:
+    print "Content-Type: text/plain;charset=utf-8"
+    print
     print "Error: Status Code " + str(result.status_code)
 
   else:

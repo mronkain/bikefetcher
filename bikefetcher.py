@@ -4,6 +4,16 @@ import requests
 import json
 import svgwrite
 
+def count_to_color(count):
+  if count == 0:
+    return "rgb(255,0,0)"
+  elif count > 9:
+    return "rbg(0,255,0)"
+  else:
+    red = (255 - 5*count)
+    return "rgb("+red+",255,0)"
+
+
 def main():
 
   try:
@@ -20,12 +30,7 @@ def main():
     stations = data["network"]["stations"]
     salmisaari = filter(lambda x: x["name"] == "Salmisaarenranta", stations)
     count = salmisaari[0]["free_bikes"]
-    color = "red"
-    if count > 3:
-      color = "green"
-    elif count > 0:
-      color = "yellow"
-
+    color = count_to_color(count)
     dwg = svgwrite.Drawing("", (100, 100), debug=True)
     dwg.add(dwg.rect(insert=(0, 0), size=('100%', '100%'), rx=None, ry=None, fill=color))
     paragraph = dwg.add(dwg.g(font_size=24))

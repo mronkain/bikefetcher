@@ -8,10 +8,10 @@ def count_to_color(count):
   if count == 0:
     return "rgb(255,0,0)"
   elif count > 9:
-    return "rbg(0,255,0)"
+    return "rgb(0,255,0)"
   else:
     red = (255 - 5*count)
-    return "rgb("+red+",255,0)"
+    return "rgb(" + str(red) + ",255,0)"
 
 
 def main():

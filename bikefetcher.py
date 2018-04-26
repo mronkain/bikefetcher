@@ -37,19 +37,21 @@ def main():
     data = json.loads(result.content)
     stations = data["network"]["stations"]
     salmisaari = filter(lambda x: x["name"] == "Salmisaarenranta", stations)
-    count = salmisaari[0]["free_bikes"]
-    
-    for x in range(0, 10):
-      count = x
+    if len(salmisaari) == 1:
+      count = salmisaari[0]["free_bikes"]
+      
       color = count_to_color(count)
-      dwg = svgwrite.Drawing("foo" +str(count) + ".svg" , (100, 100), debug=True)
+      dwg = svgwrite.Drawing("", (100, 100), debug=True)
       dwg.add(dwg.rect(insert=(0, 0), size=('100%', '100%'), rx=None, ry=None, fill=color))
       paragraph = dwg.add(dwg.g(font_size=24))
       paragraph.add(dwg.text(count, (30, 30)))
-      dwg.save()
-    print "Content-Type: image/svg+xml;charset=utf-8"
-    print
-    print dwg.tostring()
 
+      print "Content-Type: image/svg+xml;charset=utf-8"
+      print
+      print dwg.tostring()
+    else:
+      print "Content-Type: text/plain;charset=utf-8"
+      print
+      print "Error: Salmisaarenranta does not exist or is too many"
 
 main()

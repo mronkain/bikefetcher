@@ -1,12 +1,13 @@
 var fetchedSeries = [];
-var days = 2;
+var days = 3;
 
-
-var maekChart = function(date, data) {
-  fetchedSeries.push({name: date, data: data});
+var maekChart = function(date, data, legend) {
+  fetchedSeries.push({name: legend[0].toUpperCase() + legend.slice(1), data: data});
 
   if (fetchedSeries.length == days +1) {
-
+  fetchedSeries.sort(function(a,b) {
+    return a["name"] > b["name"];
+  })
     var chart = new Chartist.Line('.chart', {
       series: fetchedSeries
     }, {
@@ -30,7 +31,7 @@ var maekChart = function(date, data) {
   }
 }
 
-var fetchAndDraw = function(place, date, dataset) {
+var fetchAndDraw = function(place, date, legend) {
   fetch("https://flexer.430am.fi/salmisaari_history/" + place + "_" + date + ".tsv").then(function(response) {
     return response.text();
   }).then(function(text) {
@@ -40,14 +41,14 @@ var fetchAndDraw = function(place, date, dataset) {
       line = arr[i].split("\t");
       dataset.push({x: new Date("2000-01-01" + " " + line[1]), y: line[2]})
     }
-    maekChart(date, dataset);
-  }).catch(e => console.log(e));  
+    maekChart(date, dataset, legend);
+  });
 }
 
 
 var today = new Date();
 
-fetchAndDraw("salmisaari", moment().format("YYYY-MM-DD"));
+fetchAndDraw("salmisaari", moment().format("YYYY-MM-DD"), "today");
 for (var i = 1; i <= days; i++) {
-  fetchAndDraw("salmisaari", moment().subtract(i, 'days').format("YYYY-MM-DD"));
+  fetchAndDraw("salmisaari", moment().subtract(i, 'days').format("YYYY-MM-DD"),  "yester".repeat(i) + "day");
 }

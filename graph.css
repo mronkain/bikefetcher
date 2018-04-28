@@ -22,6 +22,14 @@
   /* Create a dashed line with a pattern */
 }
 
+.ct-series-d .ct-line {
+  /* Set the colour of this series line */
+  stroke: #999;
+  /* Control the thikness of your lines */
+  stroke-width: 1px;
+  /* Create a dashed line with a pattern */
+}
+
 [data-x-axis]::before {
   content: attr(data-x-axis);
   position: absolute;
@@ -57,6 +65,7 @@
   margin-bottom: 3px;
   cursor: pointer;
   display: inline-block;
+  text-transform: initial;
 }
 .ct-legend li:before {
   width: 12px;
@@ -90,4 +99,9 @@
 .ct-legend .ct-series-2:before {
   background-color: red;
   border-color: red;
+}
+
+.ct-legend .ct-series-3:before {
+  background-color: #999;
+  border-color: #999;
 }

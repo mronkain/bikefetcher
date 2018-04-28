@@ -31,7 +31,7 @@ var maekChart = function(date, data) {
 }
 
 var fetchAndDraw = function(place, date, dataset) {
-  fetch("/salmisaari_history/" + place + "_" + date + ".tsv").then(function(response) {
+  fetch("https://flexer.430am.fi/salmisaari_history/" + place + "_" + date + ".tsv").then(function(response) {
     return response.text();
   }).then(function(text) {
     var arr = text.split("\n");
@@ -41,7 +41,7 @@ var fetchAndDraw = function(place, date, dataset) {
       dataset.push({x: new Date("2000-01-01" + " " + line[1]), y: line[2]})
     }
     maekChart(date, dataset);
-  });  
+  }).catch(e => console.log(e));  
 }
 
 

@@ -14,6 +14,7 @@ var maekChart = function(date, data, legend) {
       showPoint: false,
       axisY: {
         onlyInteger: true,
+        low: 0
       },
       axisX: {
         type: Chartist.FixedScaleAxis,
@@ -44,9 +45,6 @@ var fetchAndDraw = function(place, date, legend) {
     maekChart(date, dataset, legend);
   });
 }
-
-
-var today = new Date();
 
 fetchAndDraw("salmisaari", moment().format("YYYY-MM-DD"), "today");
 for (var i = 1; i <= days; i++) {

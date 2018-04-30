@@ -30,6 +30,10 @@
   /* Create a dashed line with a pattern */
 }
 
+.ct-label {
+  color: #888;
+}
+
 [data-x-axis]::before {
   content: attr(data-x-axis);
   position: absolute;
@@ -37,8 +41,8 @@
   text-align: center;
   left: 0;
   bottom: 0;
-  font-size: 11px;
-  color: #777;
+  font-size: 14px;
+  color: #111;
 }
 
 [data-y-axis]::after {
@@ -46,8 +50,8 @@
   position: absolute;
   top: 50%;
   left: -10px;
-  font-size: 11px;
-  color: #777;
+  font-size: 14px;
+  color: #111;
   text-align: center;
   transform: rotate(-90deg)translateY(50%);
 }

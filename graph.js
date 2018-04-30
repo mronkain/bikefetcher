@@ -46,7 +46,7 @@ var fetchAndDraw = function(place, date, legend) {
   });
 }
 
-fetchAndDraw("salmisaari", moment().format("YYYY-MM-DD"), "today");
+fetchAndDraw("salmisaari", moment().format("YYYY-MM-DD"), "today (" + moment().subtract(i, 'days').format("dd") + ")");
 for (var i = 1; i <= days; i++) {
-  fetchAndDraw("salmisaari", moment().subtract(i, 'days').format("YYYY-MM-DD"),  "yester".repeat(i) + "day");
+  fetchAndDraw("salmisaari", moment().subtract(i, 'days').format("YYYY-MM-DD"),  "yester".repeat(i) + "day (" + moment().subtract(i, 'days').format("dd") + ")");
 }

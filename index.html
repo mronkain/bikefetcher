@@ -5,10 +5,24 @@
 
   </head>
   <body>
-    <h3>City bike situation at Salmisaari</h3>
-    <div id="chartist" class="chartist" data-x-axis="Time" data-y-axis="Bieks"></div>
-    <div style="height: 90%; width: 90%;" id="salmisaari_chart" class="chart ct-chart salmisaari_chart"></div>
-
+    <h3>City bike situation at Salmisaarenranta / Porkkalankatu</h3>
+    <form>
+      <select name="place" id="place" onchange="this.form.submit()">
+        <option id="both" value="both">
+          Both
+        </option>
+        <option id="salmisaari" value="salmisaari">
+          Salmisaarenranta
+        </option>
+        <option id="porkkala" value="porkkala">
+          Porkkalankatu
+        </option>
+      </select>
+    </form>
+    <div style="height: 80%; width: 100%;">
+      <div id="chartist" class="chartist" data-x-axis="Time, sampling frequency 3&#8531; mHz" data-y-axis="Bieks"></div>
+      <div id="salmisaari_chart" class="chart ct-chart salmisaari_chart"></div>
+    </div>
     <script src="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
     <script src="chartist-plugin-legend.js"></script>
     <script src="moment.min.js"></script>

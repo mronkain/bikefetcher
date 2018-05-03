@@ -3,6 +3,7 @@
 import requests
 import json
 import svgwrite
+from graphqlclient import GraphQLClient
 
 def count_to_color(count):
   if count == 0:
@@ -21,37 +22,41 @@ def count_to_color(count):
 def main():
 
   try:
-    result = requests.get("https://api.digitransit.fi/routing/v1/routers/hsl/bike_rental", headers={'Accept': 'application/json'})
+    client = GraphQLClient('https://api.digitransit.fi/routing/v1/routers/hsl/index/graphql/')
+    result = client.execute('''
+{
+  bikeRentalStation(id:"059") { 
+    stationId
+    name
+    bikesAvailable
+    spacesAvailable
+  }
+}    
+    ''')
+
   except:
     print "Content-Type: text/plain;charset=utf-8"
     print
     print "Error retrieving URL with requests package"
 
     #Check status code
-  if result.status_code != 200:
+  data = json.loads(result)
+  salmisaari = data['data']['bikeRentalStation'] #filter(lambda x: x["name"] == "Salmisaarenranta", stations)
+  if salmisaari:
+    count = salmisaari["bikesAvailable"]
+    
+    color = count_to_color(count)
+    dwg = svgwrite.Drawing("", (100, 100), debug=True)
+    dwg.add(dwg.rect(insert=(0, 0), size=('100%', '100%'), rx=None, ry=None, fill=color))
+    paragraph = dwg.add(dwg.g(font_size=24))
+    paragraph.add(dwg.text(count, (30, 30)))
+
+    print "Content-Type: image/svg+xml;charset=utf-8"
+    print
+    print dwg.tostring()
+  else:
     print "Content-Type: text/plain;charset=utf-8"
     print
-    print "Error: Status Code " + str(result.status_code)
-
-  else:
-    data = json.loads(result.content)
-    stations = data["stations"]
-    salmisaari = filter(lambda x: x["name"] == "Salmisaarenranta", stations)
-    if len(salmisaari) == 1:
-      count = salmisaari[0]["bikesAvailable"]
-      
-      color = count_to_color(count)
-      dwg = svgwrite.Drawing("", (100, 100), debug=True)
-      dwg.add(dwg.rect(insert=(0, 0), size=('100%', '100%'), rx=None, ry=None, fill=color))
-      paragraph = dwg.add(dwg.g(font_size=24))
-      paragraph.add(dwg.text(count, (30, 30)))
-
-      print "Content-Type: image/svg+xml;charset=utf-8"
-      print
-      print dwg.tostring()
-    else:
-      print "Content-Type: text/plain;charset=utf-8"
-      print
-      print "Error: Salmisaarenranta does not exist or is too many"
+    print "Error: Salmisaarenranta does not exist or is too many"
 
 main()

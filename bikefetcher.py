@@ -21,7 +21,7 @@ def count_to_color(count):
 def main():
 
   try:
-    result = requests.get("http://api.citybik.es/v2/networks/citybikes-helsinki")
+    result = requests.get("https://api.digitransit.fi/routing/v1/routers/hsl/bike_rental", headers={'Accept': 'application/json'})
   except:
     print "Content-Type: text/plain;charset=utf-8"
     print
@@ -35,10 +35,10 @@ def main():
 
   else:
     data = json.loads(result.content)
-    stations = data["network"]["stations"]
+    stations = data["stations"]
     salmisaari = filter(lambda x: x["name"] == "Salmisaarenranta", stations)
     if len(salmisaari) == 1:
-      count = salmisaari[0]["free_bikes"]
+      count = salmisaari[0]["bikesAvailable"]
       
       color = count_to_color(count)
       dwg = svgwrite.Drawing("", (100, 100), debug=True)

@@ -15,7 +15,8 @@ var maekChart = function(date, data, legend) {
       showPoint: false,
       axisY: {
         onlyInteger: true,
-        low: 0
+        low: 0,
+        referenceValue: 20
       },
       axisX: {
         type: Chartist.FixedScaleAxis,

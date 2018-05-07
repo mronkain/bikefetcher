@@ -75,5 +75,5 @@ if (place != "both") {
 } else {
   days = 1;
   fetchAndDraw("porkkala", moment().format("YYYY-MM-DD"), "Porkkalankatu");
-  fetchAndDraw("salmisaari", moment().format("YYYY-MM-DD"), "Salmiraarenranta");
+  fetchAndDraw("salmisaari", moment().format("YYYY-MM-DD"), "Salmisaarenranta");
 }

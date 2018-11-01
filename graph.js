@@ -56,6 +56,7 @@ var place = "both";
 
 var url = new URL(window.location);
 var p = url.searchParams.get("place");
+var date = moment('2018-10-31');
 
 if (p == "porkkala") {
   place = "porkkala";
@@ -64,16 +65,16 @@ if (p == "porkkala") {
 } else if (p == "salmisaari") {
   place = "salmisaari";
   el = document.getElementById("place");
-  el.selectedIndex = 1;  
-} 
+  el.selectedIndex = 1;
+}
 
 if (place != "both") {
-  fetchAndDraw(place, moment().format("YYYY-MM-DD"), "today (" + moment().format("dd") + ")");
+  fetchAndDraw(place, date.format("YYYY-MM-DD"), "today (" + date.format("dd") + ")");
   for (var i = 1; i <= days; i++) {
-    fetchAndDraw(place, moment().subtract(i, 'days').format("YYYY-MM-DD"),  "yester".repeat(i) + "day (" + moment().subtract(i, 'days').format("dd") + ")");
+    fetchAndDraw(place, date.subtract(i, 'days').format("YYYY-MM-DD"),  "yester".repeat(i) + "day (" + date.subtract(i, 'days').format("dd") + ")");
   }
 } else {
   days = 1;
-  fetchAndDraw("porkkala", moment().format("YYYY-MM-DD"), "Porkkalankatu");
-  fetchAndDraw("salmisaari", moment().format("YYYY-MM-DD"), "Salmisaarenranta");
+  fetchAndDraw("porkkala", date.format("YYYY-MM-DD"), "Porkkalankatu");
+  fetchAndDraw("salmisaari", date.format("YYYY-MM-DD"), "Salmisaarenranta");
 }

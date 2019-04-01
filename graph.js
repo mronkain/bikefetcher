@@ -56,7 +56,7 @@ var place = "both";
 
 var url = new URL(window.location);
 var p = url.searchParams.get("place");
-var date = moment('2018-10-31');
+var date = moment();
 
 if (p == "porkkala") {
   place = "porkkala";

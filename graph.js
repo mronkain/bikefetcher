@@ -71,7 +71,8 @@ if (p == "porkkala") {
 if (place != "both") {
   fetchAndDraw(place, date.format("YYYY-MM-DD"), "today (" + date.format("dd") + ")");
   for (var i = 1; i <= days; i++) {
-    fetchAndDraw(place, date.subtract(i, 'days').format("YYYY-MM-DD"),  "yester".repeat(i) + "day (" + date.subtract(i, 'days').format("dd") + ")");
+    date.subtract(1, 'days');
+    fetchAndDraw(place, date.format("YYYY-MM-DD"),  "yester".repeat(i) + "day (" + date.format("dd") + ")");
   }
 } else {
   days = 1;

@@ -76,6 +76,6 @@ if (place != "both") {
   }
 } else {
   days = 1;
-  fetchAndDraw("porkkala", date.format("YYYY-MM-DD"), "Porkkalankatu");
+  fetchAndDraw("porkkala", date.format("YYYY-MM-DD"), "Kaapelitehdas");
   fetchAndDraw("salmisaari", date.format("YYYY-MM-DD"), "Salmisaarenranta");
 }
